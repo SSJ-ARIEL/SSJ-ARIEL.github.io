@@ -1,0 +1,54 @@
+.legal-hero .page-hero-copy {
+  max-width: 860px;
+}
+
+.legal-date {
+  color: var(--cyan) !important;
+  font-size: 13px !important;
+  font-weight: 800;
+  margin-top: 8px;
+}
+
+.legal-layout {
+  display: grid;
+  gap: 16px;
+  margin: auto;
+  max-width: 920px;
+}
+
+.contact-grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.footer-links a {
+  background: rgba(255, 255, 255, .035);
+  border: 1px solid rgba(214, 230, 255, .16);
+  border-radius: 999px;
+  color: var(--soft);
+  font-size: 12px;
+  padding: 6px 10px;
+}
+
+.footer-links a:hover {
+  border-color: rgba(66, 243, 255, .5);
+  color: #fff;
+}
+
+@media (max-width: 720px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-links {
+    gap: 8px;
+  }
+}
