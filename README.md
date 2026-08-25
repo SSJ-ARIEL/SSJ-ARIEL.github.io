@@ -1,21 +1,42 @@
 # IA FUTURE - GitHub Pages
 
-Sitio estatico premium para una guia universitaria de inteligencias artificiales.
+Sitio editorial estático sobre uso práctico de inteligencia artificial. El contenido indexable se limita a guías, comparativas y fichas que incluyen método, revisión humana, límites y fuentes primarias.
 
-## Paginas principales
+## Arquitectura editorial
 
-- index.html: portada principal de marca IA FUTURE.
-- ia.html: explicacion de inteligencia artificial.
-- catalogo.html: catalogo filtrable de herramientas.
-- prompts.html: biblioteca de prompts.
-- noticias.html: blog/noticias editables.
-- recursos.html: recursos, etica, gratis vs premium y aviso legal.
-- ias/: paginas extensas individuales para cada IA.
+- `index.html`: portada y rutas de aprendizaje.
+- `noticias.html`: centro de guías revisadas.
+- `catalogo.html`: catálogo filtrable; solo las fichas editoriales completas se indexan.
+- `comparativas/`: pruebas reproducibles entre herramientas.
+- `guias/`: métodos de estudio, autoría y creación.
+- `ias/`: fichas prácticas de herramientas seleccionadas.
+- `metodologia.html`: proceso de investigación, revisión y correcciones.
+- `sitemap.xml`: contiene únicamente las páginas indexables.
+
+Las páginas antiguas que duplican una intención o aún no tienen revisión suficiente permanecen accesibles con `noindex,follow` y sin el cargador de anuncios.
+
+## Regenerar y validar
+
+Requiere Node.js 20 o posterior.
+
+```powershell
+node tools/editorial-rebuild.mjs
+node tools/validate-site.mjs
+```
+
+La validación comprueba títulos y descripciones únicos, un H1 por página, canonicals, referencias locales, correspondencia exacta con el sitemap, `ads.txt` y ausencia de AdSense en páginas `noindex`.
+
+## Servicios
+
+- AdSense: `ca-pub-7507181626477156`
+- GA4: `G-RM2QTBG2B4` y `G-5FNFDXWJFY`
+- Consentimiento: CookieYes se carga antes de los scripts publicitarios.
+- `ads.txt`: debe publicarse en `https://ssj-ariel.github.io/ads.txt`.
 
 ## Publicar
 
-Sube todo el contenido de esta carpeta a la raiz de tu repositorio. Luego entra a Settings > Pages > Deploy from a branch > main > /root.
+GitHub Pages despliega la rama `main` desde la raíz. Después de publicar, comprueba `robots.txt`, `sitemap.xml`, `ads.txt` y varias páginas indexables en el dominio público antes de solicitar una revisión de AdSense.
 
-## Nota legal
+## Independencia
 
-Los nombres, marcas, logos, favicons y enlaces pertenecen a sus titulares. Se usan de forma referencial dentro de un directorio educativo.
+Los nombres y marcas citados pertenecen a sus titulares. Los enlaces oficiales se utilizan como fuentes; IA FUTURE no implica afiliación con esas plataformas salvo indicación expresa.
