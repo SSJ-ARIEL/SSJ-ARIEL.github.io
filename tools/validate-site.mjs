@@ -132,6 +132,7 @@ if (adsTxt !== 'google.com, pub-7507181626477156, DIRECT, f08c47fec0942fa0') err
 
 const robotsTxt = readFileSync(join(root, 'robots.txt'), 'utf8');
 if (!robotsTxt.includes('Sitemap: https://ssj-ariel.github.io/sitemap.xml')) errors.push('robots.txt does not declare the live sitemap');
+if (!robotsTxt.includes('Sitemap: https://ssj-ariel.github.io/TARIFAPRO/sitemap.xml')) errors.push('robots.txt must also declare the live Tarifa Pro project sitemap');
 
 const counts = indexable
   .map((file) => ({ path: projectPath(file), words: textWordCount(readFileSync(file, 'utf8')) }))
