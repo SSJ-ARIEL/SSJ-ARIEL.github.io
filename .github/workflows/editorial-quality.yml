@@ -1,0 +1,25 @@
+name: Validación editorial y SEO
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validar metadatos, canonicals, enlaces y sitemap
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+      - name: Instalar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Revisar contenido publicado
+        run: node tools/validate-site.mjs
