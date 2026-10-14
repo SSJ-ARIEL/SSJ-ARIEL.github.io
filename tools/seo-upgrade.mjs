@@ -1,6 +1,9 @@
 import fs from "node:fs";
 import path from "node:path";
 
+// Archivo histórico: sus plantillas revierten la curación y los servicios pausados.
+throw new Error("Generador histórico desactivado. Utiliza node tools/editorial-rebuild.mjs.");
+
 const root = process.cwd();
 const base = "https://ssj-ariel.github.io";
 const today = "2026-08-15";

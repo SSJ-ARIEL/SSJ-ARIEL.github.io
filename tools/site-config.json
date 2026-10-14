@@ -1,0 +1,17 @@
+{
+  "services": {
+    "adsense": {
+      "enabled": false,
+      "publisherId": "ca-pub-7507181626477156",
+      "reason": "Verificación de cuenta disponible; anuncios pausados mientras se revisa el sitio y se verifica consentimiento."
+    },
+    "analytics": {
+      "enabled": false,
+      "measurementIds": ["G-RM2QTBG2B4", "G-5FNFDXWJFY"]
+    },
+    "consent": {
+      "provider": "CookieYes",
+      "configurationVerified": false
+    }
+  }
+}

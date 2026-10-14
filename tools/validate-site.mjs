@@ -4,6 +4,9 @@ import { dirname, join, relative, resolve, sep } from 'node:path';
 const root = resolve(import.meta.dirname, '..');
 const baseUrl = 'https://ssj-ariel.github.io/';
 const errors = [];
+const adFreePages = new Set(['404.html', 'contacto.html', 'privacidad.html', 'terminos.html', 'sobre.html', 'metodologia.html', 'laboratorio.html']);
+const serviceConfig = JSON.parse(readFileSync(join(root, 'tools/site-config.json'), 'utf8'));
+const servicesPaused = !serviceConfig.services.adsense.enabled && !serviceConfig.services.analytics.enabled;
 
 function walk(directory) {
   return readdirSync(directory).flatMap((entry) => {
@@ -95,12 +98,27 @@ for (const file of htmlFiles) {
         break;
       }
     }
-    if (!/adsbygoogle\.js\?client=ca-pub-7507181626477156/.test(html)) errors.push(`${path}: AdSense loader missing`);
+    if (path === 'index.html' && !/<meta\s+name="google-adsense-account"\s+content="ca-pub-7507181626477156"/.test(html)) {
+      errors.push(`${path}: publisher verification metadata missing`);
+    }
+    if (/^(guias|comparativas|ias)\//.test(path) && !/fictici[oa]|ilustrativ[oa]/i.test(html)) {
+      errors.push(`${path}: practical article lacks a clearly labelled illustrative example`);
+    }
+    if (/Equipo editorial IA FUTURE|toda guía pasa por edición humana|final pasan por revisión humana/.test(html)) {
+      errors.push(`${path}: unsupported claim about editorial reviewers`);
+    }
 
     if (title) titles.set(title, [...(titles.get(title) ?? []), path]);
     if (description) descriptions.set(description, [...(descriptions.get(description) ?? []), path]);
   } else if (/adsbygoogle\.js\?client=ca-pub-7507181626477156/.test(html)) {
     errors.push(`${path}: noindex page still loads AdSense`);
+  }
+
+  if (adFreePages.has(path) && /adsbygoogle\.js/.test(html)) {
+    errors.push(`${path}: support or exercise page loads advertising`);
+  }
+  if (servicesPaused && /adsbygoogle\.js|googletagmanager\.com\/gtag|function gtag/.test(html)) {
+    errors.push(`${path}: advertising or analytics code present while services are paused`);
   }
 
   for (const match of html.matchAll(/\b(?:href|src)=["']([^"']+)["']/gi)) {
@@ -133,6 +151,14 @@ if (adsTxt !== 'google.com, pub-7507181626477156, DIRECT, f08c47fec0942fa0') err
 const robotsTxt = readFileSync(join(root, 'robots.txt'), 'utf8');
 if (!robotsTxt.includes('Sitemap: https://ssj-ariel.github.io/sitemap.xml')) errors.push('robots.txt does not declare the live sitemap');
 if (!robotsTxt.includes('Sitemap: https://ssj-ariel.github.io/TARIFAPRO/sitemap.xml')) errors.push('robots.txt must also declare the live Tarifa Pro project sitemap');
+
+const siteCss = readFileSync(join(root, 'assets/css/styles.css'), 'utf8');
+if (/\.site-shell\{[^}]*opacity:0/.test(siteCss) || /\.reveal\{[^}]*opacity:0/.test(siteCss)) {
+  errors.push('base CSS hides HTML content until JavaScript executes');
+}
+if (!siteCss.includes('body.has-js .main-nav')) errors.push('mobile navigation lacks progressive JavaScript enhancement');
+const contactHtml = readFileSync(join(root, 'contacto.html'), 'utf8');
+if (!contactHtml.includes('mailto:sabiasque496@gmail.com')) errors.push('private contact email missing');
 
 const counts = indexable
   .map((file) => ({ path: projectPath(file), words: textWordCount(readFileSync(file, 'utf8')) }))

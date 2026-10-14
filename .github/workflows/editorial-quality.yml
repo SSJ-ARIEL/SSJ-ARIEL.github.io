@@ -23,3 +23,9 @@ jobs:
           node-version: '20'
       - name: Revisar contenido publicado
         run: node tools/validate-site.mjs
+      - name: Comprobar correspondencia entre fuentes y HTML
+        run: |
+          node tools/editorial-rebuild.mjs
+          git diff --exit-code -- '*.html' sitemap.xml
+      - name: Probar ejercicios y rúbrica del laboratorio
+        run: node tools/test-verification-lab.mjs

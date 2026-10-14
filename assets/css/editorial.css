@@ -99,6 +99,14 @@
   white-space: pre-wrap;
 }
 
+.copy-mini {
+  display: none;
+}
+
+body.has-js .copy-mini {
+  display: inline-flex;
+}
+
 .source-list {
   display: grid;
   gap: 10px;
