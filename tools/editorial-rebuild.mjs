@@ -290,7 +290,7 @@ function cleanCatalog() {
     if (!keep.has(match[1])) html=html.replace(match[0],"");
   }
   html=html.replace(/Guia universitaria de inteligencia artificial/g,"IA práctica con criterio editorial").replace(/Abre cada guia para aprender desde cero\./g,"Abre las cinco guías de práctica o consulta el sitio oficial de cada herramienta.");
-  if (!html.includes("Explora 17 herramientas con criterios claros")) html=html.replace('<section class="section"><div class="filter-panel reveal">','<section class="section"><div class="section-head reveal"><span>Selección por tarea</span><h2>Explora 17 herramientas con criterios claros</h2><p>Filtra por tarea y consulta el sitio oficial. Cinco herramientas incluyen ejercicios resueltos para practicar.</p></div><div class="filter-panel reveal">');
+  if (!html.includes("Explora 18 herramientas con criterios claros")) html=html.replace('<section class="section"><div class="filter-panel reveal">','<section class="section"><div class="section-head reveal"><span>Selección por tarea</span><h2>Explora 18 herramientas con criterios claros</h2><p>Filtra por tarea y consulta el sitio oficial. Cinco herramientas incluyen ejercicios resueltos para practicar.</p></div><div class="filter-panel reveal">');
   if (!html.includes("assets/css/editorial.css")) html=html.replace('<link rel="stylesheet" href="assets/css/seo.css">','<link rel="stylesheet" href="assets/css/seo.css">\n  <link rel="stylesheet" href="assets/css/editorial.css">');
   write("catalogo.html",html);
 }
